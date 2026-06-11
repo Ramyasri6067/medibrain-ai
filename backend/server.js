@@ -3,11 +3,18 @@ import cors from 'cors';
 import { generateChatResponse } from './models/chat.js';
 
 const app = express();
+// Define the PORT variable (defaulting to 3000 if not specified in an .env file)
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// Optimized CORS to allow connection from ngrok and clear headers
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
+
 app.use(express.json());
 
+// Main Chat Endpoint
 app.post('/api/chat', async (req, res) => {
   try {
     const { message } = req.body;
@@ -26,13 +33,17 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Health Check Endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend server running on https://localhost:${PORT}`);
-});
+// Root Endpoint
 app.get("/", (req, res) => {
   res.send("Backend is running successfully");
+});
+
+// Start Server
+app.listen(PORT, () => {
+  console.log(`Backend server running on http://localhost:${PORT}`);
 });

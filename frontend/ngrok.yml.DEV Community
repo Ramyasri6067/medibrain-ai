@@ -1,0 +1,9 @@
+version: "3"
+authtoken: YOUR_ACTUAL_NGROK_AUTHTOKEN_HERE
+tunnels:
+  my-backend:
+    proto: http
+    addr: 3000
+  my-frontend:
+    proto: http
+    addr: 5173

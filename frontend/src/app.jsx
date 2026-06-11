@@ -27,13 +27,15 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: userMessage }),
-      });
+      //  CORRECT (This uses the URL defined in your .env file)
+const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true" 
+  },
+  body: JSON.stringify({ message: userMessage }),
+});
       
       const data = await response.json();
       
